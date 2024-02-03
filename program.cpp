@@ -85,7 +85,6 @@ int MenuProgramu()
 int wybierzCalke()
 {
     int opcja;
-    do{
     cout << "***********************************" << endl;
     cout << "Wybierz funkcje do obliczenia calki" << endl;
     cout << "1. x+2" << endl;
@@ -97,13 +96,15 @@ int wybierzCalke()
     cout << "***********************************" << endl <<endl;
     cout << "Wybrana funkcja = ";
     cin >> opcja;
-        if (opcja < 1 || opcja > 5)
+        if (opcja < 1 || opcja > 6)
         {
             wyczyscEkran();
             cout << "\nNieprawidlowy wybor. Prosze podac poprawna opcje.\n" << endl;
+            return wybierzCalke();
+        }else
+        {
+        return opcja;
         }
-    } while (opcja < 1 || opcja > 4);
-    return opcja;
 }
 void wyswietlHistorie()
 {
