@@ -18,13 +18,13 @@ void interfejs()
 void definicja()
 {
 cout << "**********************************************************************************************************************************" << endl;
-cout << "Metoda trapezow daje dosc dokladne wyniki calkowania, szczegolnie przy duzej dokladnosci podzialu danego przedzialu na N trapezow.\nPolega ona na podzieleniu obszaru calkowanego na N trapezow (przedzialow), ktorych pola na koncu sumuje sie."<<endl;
+cout << "Metoda trapezow daje dosc dokladne wyniki calkowania, ktore sa tym precyzyjniejsze, im wieksza jest liczba N trapezow, na ktore dzielimy przedzial.\nPolega ona na podzieleniu obszaru calkowanego na N trapezow (przedzialow), ktorych pola na koncu sumuje sie."<<endl;
 cout << "**********************************************************************************************************************************" << endl;
 }
 int error()
 {
-    wyczyscEkran();
-    cout << "Niepoprawna opcja. Program konczy dzialanie." << endl;
+    cout << endl;
+    cout << "Niepoprawna opcja" << endl;
     return 0;
 }
 int koniec()
@@ -42,7 +42,8 @@ int opcja()
 int MenuProgramu()
 {
     int opcja;
-    do {
+        cout << endl;
+        cout << "*************************************************" << endl;
         cout << "Prosze o wybranie jednej opcji z ponizszej listy:" << endl;
         cout << "1 = Przejdz do opcji obliczania calki." << endl;
         cout << "2 = Wyswietl na czym polega metoda trapezow." << endl;
@@ -51,35 +52,6 @@ int MenuProgramu()
         cout << "*************************************************" << endl;
         cout << "Wybrana opcja = ";
         cin >> opcja;
-        if (opcja < 1 || opcja > 4)
-        {
-            wyczyscEkran();
-            cout << "\nNieprawidlowy wybor. Prosze podac poprawna opcje.\n"
-                 << endl;
-        }
-        else if (opcja == 2)
-        {
-            wyczyscEkran();
-            definicja();
-            cout << "Wybierz opcje:" << endl;
-            cout << "3 = Wroc do menu glownego." << endl;
-            cout << "4 = Zakoncz program." << endl;
-            cin >> opcja;
-            if (opcja == 3)
-            {
-                wyczyscEkran();
-                return MenuProgramu();
-            }
-            else if (opcja == 4)
-            {
-                return koniec();
-            }
-            else
-            {
-                return error();
-            }
-        }
-    } while (opcja < 1 || opcja > 4);
     return opcja;
 }
 int wybierzCalke()
@@ -142,13 +114,13 @@ double ktoraFunkcja(double x, int opcja)
             return 0;
     }
 }
-    double pole(int opcja, int dokladnosc, double x1, double x2)
+    double pole(int opcja, int IleTrapezow, double x1, double x2)
     {
-    double wysokosc = (x2 - x1) / (double)dokladnosc; //wys pojedynczego trapezu
+    double wysokosc = (x2 - x1) / (double)IleTrapezow; //wys pojedynczego trapezu
     double sumaTrapezow = 0;
     double PrawaKrawedz = 0, LewaKrawedz = ktoraFunkcja(x1, opcja);
     int i = 0;
-    while (i <= dokladnosc)
+    while (i <= IleTrapezow)
         {
         PrawaKrawedz = ktoraFunkcja(x1 + wysokosc*i, opcja);
         sumaTrapezow = sumaTrapezow + (LewaKrawedz + PrawaKrawedz);
@@ -177,7 +149,7 @@ string nazwaWielomianu(int opcja)
             return "Nieznany wielomian";
     }
 }
-void zapiszWynik(int opcja, int dokladnosc, double x1, double x2, double wynik)
+void zapiszWynik(int opcja, int IleTrapezow, double x1, double x2, double wynik)
 {
     ofstream file;
     file.open("wyniki.txt", ios_base::app);
@@ -185,12 +157,12 @@ void zapiszWynik(int opcja, int dokladnosc, double x1, double x2, double wynik)
     file << "Wynik dla wielomianu " << opcja << ": " << nazwaWielomianu(opcja) << endl;
     file << "Wartosc calki zaokraglona do czesci dziesietnych:" << fixed << setprecision(1) << wynik << endl;
     file << "Przedzial <x1 ; x2>: [" << x1 << " ; " << x2 << "]" << endl;
-    file << "Dokladnosc(ilosc trapezow w calkowaniu): " << dokladnosc << endl;
+    file << "Ilosc trapezow w calkowaniu: " << IleTrapezow << endl;
     file.close();
 }
 int calka()
 {
-    int opcja, opcja2, dokladnosc;
+    int opcja, opcja2, IleTrapezow;
     double x1, x2;
     do {
         wyczyscEkran();
@@ -211,23 +183,23 @@ int calka()
                 cout << "1 = Tak \t 2 = Nie." << endl;
                 cin >> opcja2;
             } else {
-                cout << "Podaj dokladnosc N (Warunek: N = liczba calkowita wieksza od 0):" << endl ;
-                cout << "Dokladnosc (N) = ";
-                cin >> dokladnosc;
-                if (dokladnosc <= 0)
+                cout << "Podaj liczbe trapezow N (Warunek: N = liczba calkowita wieksza od 0):" << endl ;
+                cout << "N = ";
+                cin >> IleTrapezow;
+                if (IleTrapezow <= 0)
                 {
-                    cout << "Podano nieprawidlowa wartosc podzialu." << endl;
+                    cout << "Podano nieprawidlowa wartosc trapezow." << endl;
                     cout << "Wpisz prawidlowa wartosc." << endl;
-                    cout << "Dokladnosc (N) = ";
-                    cin >> dokladnosc;
+                    cout << "N = ";
+                    cin >> IleTrapezow;
                 }
-                double wynik = pole(opcja, dokladnosc, x1, x2);
+                double wynik = pole(opcja, IleTrapezow, x1, x2);
                 cout << "Wartosc calki zaokraglona do czesci dziesietnych: " << fixed << setprecision(1) << wynik << endl;
                 cout << "Czy chcesz zapisac wynik do pliku 'wyniki.txt'? (1 = Tak, 2 = Nie): ";
                 cin >> opcja2;
                 if (opcja2 == 1)
                 {
-                    zapiszWynik(opcja, dokladnosc, x1, x2, wynik);
+                    zapiszWynik(opcja, IleTrapezow, x1, x2, wynik);
                     cout << "Wynik zostal zapisany do pliku 'wyniki.txt'." << endl;
                 }
                 cout << "Czy chcesz wrocic do poczatku?" << endl;
@@ -243,7 +215,7 @@ int calka()
         }
     } while (opcja2 != 2);
     cout << "**************************************************" << endl;
-    cout << "\nProgram zakonczyl dzialanie.\nWyniki zapisano do pliku 'wyniki.txt'." << endl;
+    cout << "Wyniki zapisano do pliku 'wyniki.txt'." << endl;
     cout << "**************************************************" << endl;
     return 0;
 }
