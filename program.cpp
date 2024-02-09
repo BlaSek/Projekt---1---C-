@@ -166,8 +166,6 @@ int calka()
     do {
         wyczyscEkran();
         opcja = wybierzCalke();
-        if (opcja > 0 && opcja < 10)
-            {
             cout << "****************************************************************" << endl;
             cout << "Podaj przedzial <x1 ; x2> (Warunek: x1<x2):" << endl;
             cout << "(x1) = ";
@@ -193,7 +191,7 @@ int calka()
                     cin >> IleTrapezow;
                 }
                 double wynik = pole(opcja, IleTrapezow, x1, x2);
-                cout << "Wartosc calki zaokraglona do czesci dziesietnych: " << wynik << endl;
+                cout << "Wartosc calki: " << wynik << endl;
                 cout << "Czy chcesz zapisac wynik do pliku 'wyniki.txt'? (1 = Tak, 2 = Nie): ";
                 cin >> opcja2;
                 if (opcja2 == 1)
@@ -206,12 +204,6 @@ int calka()
                 cout << "Wybor = ";
                 cin >> opcja2;
             }
-        } else {
-            wyczyscEkran();
-            cout << "Niepoprawny wybor. Wybierz ponownie poprawna opcje." << endl;
-            cout << "Wybor = ";
-            cin >> opcja;
-        }
     } while (opcja2 != 2);
     cout << "**************************************************" << endl;
     cout << "Wyniki zapisano do pliku 'wyniki.txt'." << endl;
