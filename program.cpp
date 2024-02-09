@@ -4,7 +4,6 @@
 #include <fstream>
 #include <cstdlib>
 using namespace std;
-
 void wyczyscEkran()
 {
     system("cls");
@@ -17,9 +16,9 @@ void interfejs()
 }
 void definicja()
 {
-cout << "**********************************************************************************************************************************" << endl;
-cout << "Metoda trapezow daje dosc dokladne wyniki calkowania, ktore sa tym precyzyjniejsze, im wieksza jest liczba N trapezow, na ktore dzielimy przedzial.\nPolega ona na podzieleniu obszaru calkowanego na N trapezow (przedzialow), ktorych pola na koncu sumuje sie."<<endl;
-cout << "**********************************************************************************************************************************" << endl;
+cout << "*****************************************************************************************************************************************************************" << endl;
+cout << "Zlozona metoda trapezow daje dosc dokladne wyniki calkowania, ktore sa tym precyzyjniejsze, im wieksza jest liczba N trapezow, na ktore dzielimy przedzial.\nPolega ona na podzieleniu obszaru calkowanego funkcji na N trapezow (przedzialow), ktorych pola na koncu sumuje sie."<<endl;
+cout << "*****************************************************************************************************************************************************************" << endl;
 }
 int error()
 {
@@ -46,7 +45,7 @@ int MenuProgramu()
         cout << "*************************************************" << endl;
         cout << "Prosze o wybranie jednej opcji z ponizszej listy:" << endl;
         cout << "1 = Przejdz do opcji obliczania calki." << endl;
-        cout << "2 = Wyswietl na czym polega metoda trapezow." << endl;
+        cout << "2 = Wyswietl na czym w skrocie polega zlozona metoda trapezow." << endl;
         cout << "3 = Wyswietl historie calkowanych funkcji." << endl;
         cout << "4 = Zakoncz program" << endl;
         cout << "*************************************************" << endl;
@@ -116,10 +115,10 @@ double ktoraFunkcja(double x, int opcja)
 }
     double pole(int opcja, int IleTrapezow, double x1, double x2)
     {
-    double wysokosc = (x2 - x1) / (double)IleTrapezow; //wys pojedynczego trapezu
+    double wysokosc = (x2 - x1) / (double)IleTrapezow;
     double sumaTrapezow = 0;
     double PrawaKrawedz = 0, LewaKrawedz = ktoraFunkcja(x1, opcja);
-    int i = 0;
+    int i = 1;
     while (i <= IleTrapezow)
         {
         PrawaKrawedz = ktoraFunkcja(x1 + wysokosc*i, opcja);
@@ -155,7 +154,7 @@ void zapiszWynik(int opcja, int IleTrapezow, double x1, double x2, double wynik)
     file.open("wyniki.txt", ios_base::app);
     file << "*****************************************************" << endl;
     file << "Wynik dla wielomianu " << opcja << ": " << nazwaWielomianu(opcja) << endl;
-    file << "Wartosc calki zaokraglona do czesci dziesietnych:" << fixed << setprecision(1) << wynik << endl;
+    file << "Wartosc calki zaokraglona do czesci dziesietnych:" << wynik << endl;
     file << "Przedzial <x1 ; x2>: [" << x1 << " ; " << x2 << "]" << endl;
     file << "Ilosc trapezow w calkowaniu: " << IleTrapezow << endl;
     file.close();
@@ -194,7 +193,7 @@ int calka()
                     cin >> IleTrapezow;
                 }
                 double wynik = pole(opcja, IleTrapezow, x1, x2);
-                cout << "Wartosc calki zaokraglona do czesci dziesietnych: " << fixed << setprecision(1) << wynik << endl;
+                cout << "Wartosc calki zaokraglona do czesci dziesietnych: " << wynik << endl;
                 cout << "Czy chcesz zapisac wynik do pliku 'wyniki.txt'? (1 = Tak, 2 = Nie): ";
                 cin >> opcja2;
                 if (opcja2 == 1)
