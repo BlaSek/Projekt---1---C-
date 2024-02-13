@@ -16,6 +16,7 @@ void interfejs()
 }
 void definicja()
 {
+wyczyscEkran();
 cout << "*****************************************************************************************************************************************************************" << endl;
 cout << "Zlozona metoda trapezow daje dosc dokladne wyniki calkowania, ktore sa tym precyzyjniejsze, im wieksza jest liczba N trapezow, na ktore dzielimy przedzial.\nPolega ona na podzieleniu obszaru calkowanego funkcji na N trapezow (przedzialow), ktorych pola na koncu sumuje sie."<<endl;
 cout << "*****************************************************************************************************************************************************************" << endl;
@@ -192,7 +193,8 @@ int calka()
                 }
                 double wynik = pole(opcja, IleTrapezow, x1, x2);
                 cout << "Wartosc calki: " << wynik << endl;
-                cout << "Czy chcesz zapisac wynik do pliku 'wyniki.txt'? (1 = Tak, 2 = Nie): ";
+                cout << "Czy chcesz zapisac wynik do pliku 'wyniki.txt'? (1 = Tak, 2 = Nie): \n";
+                cout << "Wybor = ";
                 cin >> opcja2;
                 if (opcja2 == 1)
                 {
@@ -206,7 +208,7 @@ int calka()
             }
     } while (opcja2 != 2);
     cout << "**************************************************" << endl;
-    cout << "Wyniki zapisano do pliku 'wyniki.txt'." << endl;
+    cout << "Wyniki zapisanych obliczen znajduja sie w pliku 'wyniki.txt'." << endl;
     cout << "**************************************************" << endl;
     return 0;
 }
